@@ -1,0 +1,13 @@
+faster-whisper==1.0.3
+sounddevice==0.5.1
+numpy==1.26.4
+keyboard==0.13.5
+pyperclip==1.9.0
+PyQt6==6.7.1
+requests==2.32.3
+tomli==2.0.1
+Pillow==10.4.0
+# CUDA runtime libraries for faster-whisper GPU inference.
+# These ship cublas64_12.dll and cudnn_ops_infer64_8.dll into site-packages/nvidia/*/bin
+nvidia-cublas-cu12
+nvidia-cudnn-cu12

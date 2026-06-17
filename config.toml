@@ -1,0 +1,64 @@
+# flowlite config — edit and restart the daemon to apply
+
+[hotkeys]
+# Hold to record. Release to stop, transcribe, and paste.
+record = "ctrl+windows"
+# Tap to toggle hands-free (locked) recording mode.
+lock_toggle = "ctrl+windows+space"
+# Tap to cancel an in-progress recording without pasting.
+cancel = "esc"
+# Tap to paste the most recent transcript again — useful when the original
+# paste landed in the desktop/taskbar instead of a real text field.
+retrieve_paste = "ctrl+alt+v"
+
+[stt]
+# Whisper model. Built-in aliases: tiny, base, small, medium, large-v3, distil-large-v3.
+# Or any HuggingFace CTranslate2 repo ID (used here for turbo, which isn't a built-in alias in fw 1.0.3).
+model = "deepdml/faster-whisper-large-v3-turbo-ct2"
+# Compute device: "cuda" or "cpu"
+device = "cuda"
+# Compute precision. "int8_float16" is best for 4GB VRAM. Fall back to "int8" on CPU.
+compute_type = "int8_float16"
+# Force a language code (e.g. "en") or leave empty for auto-detect (slower).
+language = "en"
+# Use voice-activity detection to strip silence before transcription.
+vad_filter = true
+
+[formatter]
+# Set to false to skip LLM cleanup entirely and paste raw Whisper output.
+enabled = true
+# Ollama model used to clean up the transcript.
+model = "gemma3:1b"
+# How long (seconds) to wait for Ollama before falling back to rule-based.
+# First call after Ollama loads the model takes ~15s; warm calls take ~2-3s.
+timeout = 30.0
+# Keep the model resident in Ollama for this long after each request
+# (Ollama parses "30m", "1h", etc.). Avoids cold-start on subsequent dictations.
+keep_alive = "30m"
+# Ollama base URL.
+ollama_url = "http://localhost:11434"
+
+[output]
+# Tiny delay after writing clipboard before sending Ctrl+V (lets clipboard settle).
+paste_delay_ms = 60
+# Save and restore the user's existing clipboard contents.
+preserve_clipboard = true
+# Show a Windows toast when the focused window can't accept a paste
+# (desktop, taskbar, start menu) instead of silently dropping the text.
+notify_on_skip = true
+
+[ui]
+# Show the floating pill near the mouse cursor while recording.
+show_pill = true
+# Play a soft beep when recording starts/stops (Windows system sounds).
+play_sounds = false
+
+[audio]
+sample_rate = 16000
+channels = 1
+# Max recording length in seconds (safety cap for hands-free mode).
+max_seconds = 600
+# Recordings shorter than this skip transcription entirely and go straight
+# back to idle — catches the "tap record then immediately stop" case so
+# the UI doesn't hang on the transcribing animation for a few empty samples.
+min_seconds = 0.3

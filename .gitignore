@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# virtual environments
+.venv/
+venv/
+env/
+
+# local recordings / temp audio
+*.wav
+recordings/
+
+# logs
+*.log
+
+# misc
+.DS_Store

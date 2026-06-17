@@ -1,0 +1,9 @@
+# flowlite dictionary — your custom words and pronunciation fixes.
+# Edit freely, then restart flowlite (or it reloads on next dictation).
+#
+# Bare word  -> biases Whisper toward spelling it this way:
+Yuvansh
+flowlite
+#
+# "heard => meant"  -> auto-replaces a recurring mis-hearing:
+# example:  fluvlite => flowlite
